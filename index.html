@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déplacer une image avec le curseur</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden;
+        }
+        .image-container {
+            position: absolute;
+            cursor: grab;
+        }
+        .image-container:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container" id="imageContainer">
+        <img src="https://th.bing.com/th/id/OIP.ZsAjlvtDopY0_e1AnlqHrgHaFj?w=225&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Image à déplacer" id="image" width="200">
+    </div>
+    <script>
+        const imageContainer = document.getElementById('imageContainer');
+        let isDragging = false;
+
+        imageContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            imageContainer.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                imageContainer.style.left = `${e.clientX - imageContainer.offsetWidth / 2}px`;
+                imageContainer.style.top = `${e.clientY - imageContainer.offsetHeight / 2}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            imageContainer.style.cursor = 'grab';
+        });
+    </script>
+</body>
+</html>
